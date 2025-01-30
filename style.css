@@ -168,11 +168,62 @@ header {
 
 .prev { left: 10px; }
 .next { right: 10px; }
-
+/* Stile Footer Moderno */
 .footer-background {
     background: url('footer-background.jpg') no-repeat center center;
     background-size: cover;
-    padding: 20px;
+    position: relative;
+    padding: 40px 20px;
     color: white;
     text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+
+.footer-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Overlay scuro */
+    z-index: 0;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+/* Stile icone social */
+.social-icons a {
+    margin: 0 10px;
+    font-size: 24px;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: white;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+    color: #1DB954; /* Verde di Spotify */
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
