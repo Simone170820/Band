@@ -33,19 +33,58 @@ document.addEventListener("DOMContentLoaded", function () {
         touchEndX = event.changedTouches[0].clientX;
         let swipeDistance = touchEndX - touchStartX;
 
-        // **DEBUG: Logga i dati dello swipe**
-        console.log("Swipe rilevato:", swipeDistance, "px");
-
-        // **Swipe da sinistra a destra per APRIRE il menu**
+        // Swipe da sinistra a destra per APRIRE il menu
         if (swipeDistance > 50 && touchStartX < 50) {
-            console.log("Apro il menu con swipe da sinistra");
             toggleMenu(true);
         }
 
-        // **Swipe da destra a sinistra per CHIUDERE il menu**
+        // Swipe da destra a sinistra per CHIUDERE il menu
         if (swipeDistance < -50 && menu.classList.contains("open")) {
-            console.log("Chiudo il menu con swipe da destra");
             toggleMenu(false);
         }
     });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    let index = 0;
+    const images = document.querySelectorAll(".carousel-images img");
+    const totalImages = images.length;
+    const carousel = document.querySelector(".carousel-images");
+
+    function showImage(index) {
+        carousel.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    document.querySelector(".prev").addEventListener("click", function () {
+        index = (index === 0) ? totalImages - 1 : index - 1;
+        showImage(index);
+    });
+
+    document.querySelector(".next").addEventListener("click", function () {
+        index = (index === totalImages - 1) ? 0 : index + 1;
+        showImage(index);
+    });
+
+    // Swipe su mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    carousel.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        if (touchStartX - touchEndX > 50) { // Swipe sinistra
+            index = (index === totalImages - 1) ? 0 : index + 1;
+        } else if (touchEndX - touchStartX > 50) { // Swipe destra
+            index = (index === 0) ? totalImages - 1 : index - 1;
+        }
+        showImage(index);
+    });
+
+    // Scorrimento automatico
+    setInterval(() => {
+        index = (index + 1) % totalImages;
+        showImage(index);
+    }, 3000);
 });
