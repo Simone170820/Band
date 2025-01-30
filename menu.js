@@ -9,42 +9,39 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("overlay").addEventListener("click", toggleMenu);
 });
 
+document.addEventListener("DOMContentLoaded", function () {
     let menu = document.getElementById("mobile-menu");
-    let menuToggle = document.getElementById("menu-toggle");
+    let overlay = document.getElementById("overlay");
+    let menuButton = document.querySelector(".menu-btn");
 
-    // Funzione per aprire/chiudere il menu con il bottone
-    menuToggle.addEventListener("click", function () {
-        menu.classList.toggle("open"); // Aggiunge/rimuove la classe "open"
-    });
+    function toggleMenu() {
+        menu.classList.toggle("open");
+        overlay.classList.toggle("open");
+    }
 
-    // Variabili per il rilevamento dello swipe
+    // Click sull'icona del menu
+    menuButton.addEventListener("click", toggleMenu);
+
+    // Click sull'overlay per chiudere il menu
+    overlay.addEventListener("click", toggleMenu);
+
+    // Swipe per chiudere il menu
     let touchStartX = 0;
     let touchEndX = 0;
 
-    // Registra il punto di inizio del tocco
     menu.addEventListener("touchstart", function (event) {
         touchStartX = event.touches[0].clientX;
     });
 
-    // Registra il punto di fine del tocco
     menu.addEventListener("touchmove", function (event) {
         touchEndX = event.touches[0].clientX;
     });
 
-    // Controlla la direzione dello swipe alla fine del tocco
     menu.addEventListener("touchend", function () {
-        if (touchStartX - touchEndX > 50) { 
-            // Swipe verso sinistra → chiude il menu
-            menu.classList.remove("open");
+        if (touchStartX - touchEndX > 50) { // Swipe sinistra
+            toggleMenu();
         }
     });
-
-    document.addEventListener("click", function (event) {
-        // Chiude il menu se si clicca fuori dal menu
-        if (!menu.contains(event.target) && event.target !== menuToggle) {
-            menu.classList.remove("open");
-        }
-    });
-
+});
 
 
