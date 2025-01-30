@@ -34,112 +34,9 @@ header {
     text-decoration: none;
 }
 
- 
-/* Pulsante menu mobile */
-.menu-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    display: none;
-    position: absolute;
-    left: 15px; /* Sposta il pulsante a sinistra */
-    top: 50%;
-    transform: translateY(-50%);
-}
+/* MENU MOBILE */
 
-/* Responsive */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .desktop-menu {
-        display: none;
-    }
-    
-    .menu-btn {
-        display: block;
-    }
-}
-
-
-/* Responsive */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .desktop-menu {
-        display: none;
-    }
-    
-    .menu-btn {
-        display: block;
-    }
-}
-
-/* Menu mobile (side menu scorrevole) */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    left: -250px; /* Parte nascosto */
-    width: 250px;
-    height: 100%;
-    background: #222;
-    padding-top: 60px;
-    transition: left 0.3s ease-in-out;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.mobile-menu.open {
-    left: 0; /* Scorre da sinistra */
-}
-
-.mobile-menu a {
-    display: block;
-    padding: 15px;
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-.mobile-menu a:hover {
-    background: #444;
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-/* Sfondo scuro quando il menu è aperto */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 900;
-}
-
-.overlay.show {
-    display: block;
-}
-
-/* Stile del bottone menu */
+/* Stile del bottone menu (solo su mobile) */
 .menu-btn {
     position: fixed;
     top: 15px;
@@ -152,28 +49,49 @@ header {
     cursor: pointer;
     border-radius: 5px;
     z-index: 1001;
+    display: none; /* Nasconde il bottone su desktop */
+}
+
+/* Mostra il bottone solo su schermi piccoli */
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block;
+    }
 }
 
 /* Stile del menu mobile */
 .mobile-menu {
     position: fixed;
     top: 0;
-    left: -250px; /* Nascondi il menu */
+    left: -250px; /* Parte nascosto */
     width: 250px;
     height: 100vh;
-    background-color: #222;
-    color: white;
+    background: #222;
     padding-top: 60px;
     transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1002;
 }
 
-/* Menu visibile */
+/* Quando il menu è aperto */
 .mobile-menu.open {
     left: 0;
 }
 
-/* Overlay scuro */
+/* Stile dei link nel menu */
+.mobile-menu a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.mobile-menu a:hover {
+    background: #444;
+}
+
+/* Overlay scuro quando il menu è aperto */
 .overlay {
     position: fixed;
     top: 0;
@@ -187,11 +105,20 @@ header {
     z-index: 1000;
 }
 
-/* Quando il menu è aperto, mostra l'overlay */
+/* Mostra l'overlay quando il menu è aperto */
 .mobile-menu.open + .overlay {
     visibility: visible;
     opacity: 1;
 }
 
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
 
-
+    .desktop-menu {
+        display: none; /* Nasconde il menu desktop su mobile */
+    }
+}
